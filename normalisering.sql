@@ -23,13 +23,33 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
+
+/* Normalisera Student */
+
 drop table if exists Student;
 
 create table Student (
-	Id int not null auto_increment,
+	StudentId int not null auto_increment,
 	Name varchar(255) not null,
-	constraint primary key (Id)
+	constraint primary key (StudentId)
 ) engine=innodb;
 
-insert into Student (Id, Name)
-	select distinct Id, Name from UNF;
+insert into Student (StudentId, Name)
+select distinct Id, Name from UNF;
+
+
+/* Normalisera School */
+
+drop table if exists School, StudentSchool;
+
+create table School (
+	SchoolId int not null auto_increment,
+	Name varchar(255) not null,
+	constraint primary key (SchoolId)
+);
+
+insert into School (Name)
+select distinct School from UNF;
+
+create table StudentSchool as
+select Id as StudentId, SchoolId from UNF join School on UNF.School = School.Name;
