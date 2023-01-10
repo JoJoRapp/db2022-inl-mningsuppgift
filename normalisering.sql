@@ -45,11 +45,12 @@ drop table if exists School, StudentSchool;
 create table School (
 	SchoolId int not null auto_increment,
 	Name varchar(255) not null,
+	City varchar(255) not null,
 	constraint primary key (SchoolId)
 );
 
-insert into School (Name)
-select distinct School from UNF;
+insert into School (Name, City)
+select distinct School, City from UNF;
 
 create table StudentSchool as
 select Id as StudentId, SchoolId from UNF join School on UNF.School = School.Name;
