@@ -54,3 +54,27 @@ select distinct School, City from UNF;
 
 create table StudentSchool as
 select Id as StudentId, SchoolId from UNF join School on UNF.School = School.Name;
+
+
+/* Normalisera Phones */
+
+drop table if exists Phone;
+create table Phone (
+	PhoneId int not null auto_increment,
+	StudentId int not null,
+	IsHome tinyint not null default 0,
+	IsJob tinyint not null default 0,
+	IsMobile tinyint not null default 0,
+	Number varchar(255) not null,
+	constraint primary key(PhoneId)
+);
+
+insert into Phone (StudentId, IsHome, IsJob, IsMobile, Number)
+select Id, true, false, false, HomePhone from UNF
+where HomePhone is not null and HomePhone != ''
+union select Id, false, true, false, JobPhone from UNF
+where JobPhone is not null and JobPhone != ''
+union select Id, false, false, true, MobilePhone1 from UNF
+where MobilePhone1 is not null and MobilePhone1 != ''
+union select Id, false, false, true, MobilePhone2 from UNF
+where MobilePhone2 is not null and MobilePhone2 != '';
