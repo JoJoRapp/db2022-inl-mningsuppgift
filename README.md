@@ -3,6 +3,7 @@ Slutprojekt i databas-kursen
 
 ## Entity Relationship Diagram
 
+```mermaid
 erDiagram
 	STUDENT ||--o{ PHONE : has
 	STUDENT ||--o{ STUDENTSCHOOL : attends
@@ -28,3 +29,4 @@ erDiagram
 		int StudentId
 		int SchoolId
 	}
+```
