@@ -78,3 +78,29 @@ union select Id, false, false, true, MobilePhone1 from UNF
 where MobilePhone1 is not null and MobilePhone1 != ''
 union select Id, false, false, true, MobilePhone2 from UNF
 where MobilePhone2 is not null and MobilePhone2 != '';
+
+
+/* Normalisera Hobbies */
+
+drop table if exists Hobby;
+create table Hobby (
+	HobbyId int not null auto_increment,
+	Name varchar(255) not null,
+	constraint primary key (HobbyId)
+);
+
+drop view if exists HobbiesTemp;
+create view HobbiesTemp as
+select Id as StudentId, trim(substring_index(Hobbies, ",", 1)) as Hobby from UNF
+where Hobbies != ""
+union select Id as StudentId, trim(substring_index(substring_index(Hobbies, ",", -2), ",", 1)) from UNF
+where Hobbies != ""
+union select Id as StudentId, trim(substring_index(Hobbies, ",", -1)) from UNF
+where Hobbies != "";
+
+insert into Hobby(Name)
+select distinct Hobby from HobbiesTemp;
+
+drop table if exists StudentHobby;
+create table StudentHobby as
+select distinct StudentId, HobbyId from HobbiesTemp join Hobby on HobbiesTemp.Hobby = Hobby.Name;

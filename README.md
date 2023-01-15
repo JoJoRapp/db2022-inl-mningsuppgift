@@ -7,11 +7,13 @@ Slutprojekt i databas-kursen
 erDiagram
 	STUDENT ||--o{ PHONE : has
 	STUDENT ||--o{ STUDENTSCHOOL : attends
+	STUDENT ||--o{ STUDENTHOBBY : has
+	SCHOOL ||--o{ STUDENTSCHOOL : enrolls
+	HOBBY ||--o{ STUDENTHOBBY : involves
 	STUDENT {
 		int StudentId
 		string Name
 	}
-	SCHOOL ||--o{ STUDENTSCHOOL : enrolls
 	SCHOOL {
 		int SchoolId
 		string Name
@@ -25,8 +27,16 @@ erDiagram
 		tinyint IsMobile
 		string Number
 	}
+	HOBBY {
+		int HobbyId
+		string Name
+	}
 	STUDENTSCHOOL {
 		int StudentId
 		int SchoolId
+	}
+	STUDENTHOBBY {
+		int StudentId
+		int HobbyId
 	}
 ```
