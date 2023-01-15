@@ -104,3 +104,21 @@ select distinct Hobby from HobbiesTemp;
 drop table if exists StudentHobby;
 create table StudentHobby as
 select distinct StudentId, HobbyId from HobbiesTemp join Hobby on HobbiesTemp.Hobby = Hobby.Name;
+
+
+/* Normalisera Grade */
+
+drop table if exists Grade;
+create table Grade (
+	GradeId int not null auto_increment,
+	Name varchar(255) not null,
+	constraint primary key (GradeId)
+);
+
+insert into Grade (Name)
+select distinct Grade from UNF;
+
+alter table Student add column GradeId int not null;
+
+update Student join UNF on (StudentId = Id) join Grade on Grade.Name = UNF.Grade
+set Student.GradeId = Grade.GradeId;

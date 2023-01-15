@@ -8,11 +8,13 @@ erDiagram
 	STUDENT ||--o{ PHONE : has
 	STUDENT ||--o{ STUDENTSCHOOL : attends
 	STUDENT ||--o{ STUDENTHOBBY : has
+	STUDENT }o--o| GRADE : has
 	SCHOOL ||--o{ STUDENTSCHOOL : enrolls
 	HOBBY ||--o{ STUDENTHOBBY : involves
 	STUDENT {
 		int StudentId
 		string Name
+		int GradeId
 	}
 	SCHOOL {
 		int SchoolId
@@ -29,6 +31,10 @@ erDiagram
 	}
 	HOBBY {
 		int HobbyId
+		string Name
+	}
+	GRADE {
+		int GradeId
 		string Name
 	}
 	STUDENTSCHOOL {
