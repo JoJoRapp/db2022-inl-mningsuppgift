@@ -136,4 +136,5 @@ Följande instruktion förutsätter att instruktionerna ovan har följts först.
 
 ```bash
 gradle check
+gradle run
 ```

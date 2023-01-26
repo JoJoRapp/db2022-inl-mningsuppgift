@@ -5,15 +5,11 @@ import org.junit.jupiter.api.*;
 import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static se.iths.Constants.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AppTest {
-    private static final String JDBC_CONNECTION = "jdbc:mysql://localhost:3306/Chinook";
-    private static final String JDBC_USER = "user1";
-    private static final String JDBC_PASSWORD = "iths"; //insecure!
-    private static final String TEST_USER = "Nisse Hult";
-    private static final String TEST_ROLE = "Admin";
-    private static final String TEST_NEWROLE = "User";
+
     private static long actualIdAfterInsert;
 
     public static Connection con = null;
