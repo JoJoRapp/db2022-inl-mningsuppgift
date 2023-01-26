@@ -73,6 +73,7 @@ docker run --name container-with-mysql\
 
 ```bash
 curl -L  https://gist.github.com/miwashiab/d891a64c7f73f4c8c3b5cfee2b3de776/raw/denormalized-data.csv -o denormalized-data.csv
+curl -L  https://gist.github.com/miwashiab/e39a3228f0b389b6f3eca1b8c613bb2e/raw/db.sql -o db.sql
 ```
 
 ### Varje gång
@@ -90,6 +91,11 @@ docker cp denormalized-data.csv container-with-mysql:/var/lib/mysql-files
 ```
 
 ```bash
+docker exec -i container-with-mysql mysql -uroot -proot < db.sql
+```
+
+```bash
+docker exec -i container-with-mysql mysql -uroot -proot <<< "grant all on Chinook.* to 'user1'@'%'"
 docker exec -i container-with-mysql mysql -uroot -proot <<< "grant all on iths.* to 'user1'@'%'"
 docker exec -i container-with-mysql mysql -uroot -proot <<< "grant file on *.* to 'user1'@'%'"
 ```
@@ -98,17 +104,17 @@ docker exec -i container-with-mysql mysql -uroot -proot <<< "grant file on *.* t
 docker exec -i container-with-mysql mysql -uuser1 -piths < normalisering.sql
 ```
 
-#### MacOS/UNIX
-
-```bash
-docker exec -it container-with-mysql bash
-```
-
-#### Windows
-
-```bash
-winpty docker exec -it container-with-mysql bash
-```
+> #### MacOS/UNIX
+>
+> ```bash
+> docker exec -it container-with-mysql bash
+> ```
+>
+> #### Windows
+>
+> ```bash
+> winpty docker exec -it container-with-mysql bash
+> ```
 
 ```bash
 mysql -uuser1 -piths
@@ -117,4 +123,17 @@ mysql -uuser1 -piths
 ```sql
 use iths;
 show tables;
+exit
+```
+
+```bash
+exit
+```
+
+## Köra Javakoden
+
+Följande instruktion förutsätter att instruktionerna ovan har följts först.
+
+```bash
+gradle check
 ```
